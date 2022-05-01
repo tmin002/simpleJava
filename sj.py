@@ -16,8 +16,12 @@ def sjprint(text):
 def sjhelp(badcmd=False):
     if badcmd:
         sjprint('Invalid command.')
-    print('usage: sj [--run/-R]')
-    print('       src/ and manifest.mf required.')
+    print('usage: sj [options]')
+    print('options: ')
+    print('  --run/-r     Run after compile')
+    print('  --clean/-c   Remove \'out\' directory')
+    print('  --help/-h/?  Show help')
+    print('important: src/ and manifest.mf required.')
     sjexit()
 
 def shell(args):
@@ -26,12 +30,6 @@ def shell(args):
         sjexit('error detected, terminating.')
 
 #0. Chceck requisities and args
-if not os.path.exists('src'):
-    sjexit('src directory not found')
-if not os.path.exists('manifest.mf'):
-    sjexit('manifest.mf not found')
-if not os.path.exists('out'):
-    os.mkdir('out')
 
 if len(sys.argv) >= 3:
     sjhelp(True)
@@ -40,8 +38,18 @@ if len(sys.argv) == 2:
         sjhelp()
     elif sys.argv[1].lower() == '-r' or sys.argv[1] == '--run':
         RUN_AFTER = True
+    elif sys.argv[1].lower() == '-c' or sys.argv[1] == '--clean':
+        os.system('rm -rf out')
+        sjexit()
     else:
         sjhelp(True)
+
+if not os.path.exists('src'):
+    sjexit('src directory not found')
+if not os.path.exists('manifest.mf'):
+    sjexit('manifest.mf not found')
+if not os.path.exists('out'):
+    os.mkdir('out')
 
 #1. Get file list
 flist = []
@@ -67,4 +75,4 @@ if RUN_AFTER:
     print('\033[0;32m[Program started]\033[0;0m')
     result = os.system('java -jar output.jar')
     print('\033[0;%dm[Program terminated]\033[0;0m' % (32 if result == 0 else 31))
-sjexit(0)
+sjexit()
