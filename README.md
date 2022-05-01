@@ -2,7 +2,7 @@
 Python script that helps compile a plain java package (Unix environment only), Developed for personal use.
 
 ## Installation
-	curl https://raw.githubusercontent.com/tmin002/simpleJava/main/sj.py > sj ; chmod a+x sj
+	curl https://raw.githubusercontent.com/tmin002/simpleJava/main/sj.py > sj ; curl https://raw.githubusercontent.com/tmin002/simpleJava/main/manifest.mf > manifest.mf; chmod a+x sj
 
 ## How to use
 - sj reads Java source files in the 'src' folder, then reads 'manifest.mf', then creates 'output.jar'.
